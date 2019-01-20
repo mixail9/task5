@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="btnLogin">Log in</string>
+    <string name="inLoginHint">name</string>
+    <string name="inPassHint">pass</string>
+    <string name="passErr">login / password incorrect</string>
+    <string name="emptyLogin">empty login</string>
+    <string name="emptyPass">empty password</string>
+    <string name="emptyLoginAndPass">empty login and pass</string>
+</resources>
