@@ -24,8 +24,8 @@ class Main2Activity : AppCompatActivity() {
 
     fun setData(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item1 -> { adapterObj.dataSet = data.filter { it.type == TYPE_PERSONAL }; /*app_bar_image.setImageResource(R.drawable.linux)*/ }
-            R.id.item2 -> { adapterObj.dataSet = data.filter { it.type == TYPE_GROUP }; /*app_bar_image.setImageResource(R.drawable.win)*/ }
+            R.id.item1 -> { adapterObj.items = data.filter { it.type == TYPE_PERSONAL }; app_bar_image.setImageResource(R.drawable.linux) }
+            R.id.item2 -> { adapterObj.items = data.filter { it.type == TYPE_GROUP }; app_bar_image.setImageResource(R.drawable.win) }
             else -> {}
         }
         Log.d("current", adapterObj.dataSet.toString())
