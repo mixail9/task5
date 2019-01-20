@@ -7,4 +7,7 @@
     <string name="emptyLogin">empty login</string>
     <string name="emptyPass">empty password</string>
     <string name="emptyLoginAndPass">empty login and pass</string>
+
+    <string name="menu1">live</string>
+    <string name="menu2">group</string>
 </resources>

@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun login(view: View): Boolean {
-        if(loginInput.text!!.equals("test") && passInput.text!!.equals("test")) {
+        if(loginInput.text!!.toString().equals("test") && passInput.text!!.toString().equals("test")) {
             startActivity(Intent(this, Main2Activity::class.java))
         } else
             if(loginInput.text!!.isEmpty() && passInput.text!!.isEmpty())

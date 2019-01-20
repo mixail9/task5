@@ -7,7 +7,15 @@
         android:layout_height="match_parent"
         tools:context=".Main2Activity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/navBar"/>
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="395dp"
-            android:layout_height="715dp" tools:layout_editor_absoluteY="8dp" tools:layout_editor_absoluteX="8dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp" android:id="@+id/listView"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
