@@ -1,7 +1,7 @@
 package com.example.myapplication
 
-val TYPE_GROUP = 1
-val TYPE_PERSONAL = 2
+const val TYPE_GROUP = 1
+const val TYPE_PERSONAL = 2
 
 
 val data = listOf(

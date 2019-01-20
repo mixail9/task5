@@ -12,6 +12,12 @@ import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 class GroupHolder(val view: View): RecyclerView.ViewHolder(view)
 
 class MainAdapter(var ctx: Activity, var dataSet: List<OneItem>): ListDelegationAdapter<List<OneItem>>() {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if(position < 2)
+            setItems(dataSet)
+
+        super.onBindViewHolder(holder, position)
+    }
 
     init{
         delegatesManager.addDelegate(GroupAdapter(ctx)).addDelegate(PersonalAdapter(ctx))
@@ -53,7 +59,7 @@ class PersonalAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-        return GroupHolder(ctx.layoutInflater.inflate(R.layout.group_item, parent, false))
+        return GroupHolder(ctx.layoutInflater.inflate(R.layout.personal_item, parent, false))
     }
 
     override fun onBindViewHolder(
@@ -63,6 +69,7 @@ class PersonalAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
         payloads: MutableList<Any>
     ) {
 
+        Log.d("current", "onBindViewHolder" + items.toString())
         val item = items.get(position) as PersonalItem
         (holder as GroupHolder).view.findViewById<TextView>(R.id.textView).text = item.title
     }
