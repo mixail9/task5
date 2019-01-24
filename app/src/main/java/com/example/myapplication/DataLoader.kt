@@ -23,12 +23,11 @@ class DataLoader(val ctx: Activity) {
         queue.add(StringRequest(
             "https://api.vk.com/method/groups.getMembers?access_token=2c1d1ab72c1d1ab72c1d1ab7032c7500cc22c1d2c1d1ab7705d5f28d93d7589f0bea47c&v=5.92&group_id=64282323&count=20&fields=Name,photo_100,city,country,place,description,sex",
             Response.Listener<String> { response ->
-                Log.d("current", response)
                 val responseJson = JSONObject(response).getJSONObject("response").getJSONArray("items")
                 for(i in 0..responseJson.length()-1) {
                     with(responseJson.getJSONObject(i)) {
-                        if(i % advPariod == 0)
-                            newData.add(AdvItem("https://sun9-22.userapi.com/c846522/v846522817/113130/3bdEJoWKoiY.jpg"))
+                        //if(i % advPariod == 0)
+                        //    newData.add(AdvItem("https://sun9-22.userapi.com/c846522/v846522817/113130/3bdEJoWKoiY.jpg"))
                         descr = ""
                         try {
                             descr = /*"\nphone = " + this.getString("mobile_phone") + */"\nsex = " + if(this.getInt("sex")==2) "man" else "woman" + "\ncountry = " + this.getJSONObject("country").getString("title") + "\ncity = " + this.getJSONObject("city").getString("title")
@@ -50,19 +49,23 @@ class DataLoader(val ctx: Activity) {
         ))
 
         queue.add(StringRequest(
-            "https://api.vk.com/method/groups.getMembers?access_token=2c1d1ab72c1d1ab72c1d1ab7032c7500cc22c1d2c1d1ab7705d5f28d93d7589f0bea47c&v=5.92&group_id=64282323&count=20&fields=Name,photo_100,description",
+            "https://api.vk.com/method/wall.get?access_token=2c1d1ab72c1d1ab72c1d1ab7032c7500cc22c1d2c1d1ab7705d5f28d93d7589f0bea47c&v=5.92&owner_id=-64282323&count=20&extended=1&fields=from_id,text,likes",
             Response.Listener<String> { response ->
                 Log.d("current", response)
                 val responseJson = JSONObject(response).getJSONObject("response").getJSONArray("items")
                 for(i in 0..responseJson.length()-1) {
-                    if(i % advPariod == 0)
+                    if(i % advPariod == 0 && i > 0)
                         newData.add(AdvItem("https://sun9-22.userapi.com/c846522/v846522817/113130/3bdEJoWKoiY.jpg"))
                     with(responseJson.getJSONObject(i)) {
+                        try {
                         newData.add(
-                            PersonalItem(
-                                this.getString("first_name") + " " + this.getString("last_name")
-                            )
+                                PersonalItem(
+                                    this.getString("date"),
+                                    this.getString("text"),
+                                    this.getJSONObject("likes").getInt("count")
+                                )
                         )
+                    } catch(e: Exception) { Log.e("current", e.toString())}
                     }
                 }
                 completedSteps++
@@ -76,12 +79,13 @@ class DataLoader(val ctx: Activity) {
 
 
     fun setLocal() {
+        Log.d("current", "step = " + completedSteps + " / " + loadSteps)
         if(completedSteps < loadSteps)
             return
 
         data = newData
         (ctx as Main2Activity).adapterObj.apply {
-            dataSet = data
+            items = newData
             notifyDataSetChanged()
         }
     }

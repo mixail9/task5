@@ -49,6 +49,6 @@ data class AdvItem(val img: String): OneItem() {
 data class GroupItem(val title: String, val img: String = "", val descr: String = ""): OneItem() {
     override val type = TYPE_GROUP
 }
-data class PersonalItem(val title: String): OneItem() {
+data class PersonalItem(val title: String, val text: String? = null, val likes: Int = 0): OneItem() {
     override val type = TYPE_PERSONAL
 }

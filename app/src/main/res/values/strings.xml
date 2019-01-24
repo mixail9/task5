@@ -10,4 +10,9 @@
 
     <string name="menu1">live</string>
     <string name="menu2">group</string>
+
+    <string-array name="themesSelector">
+        <item id="standart" name="standart">standart</item>
+        <item id="redTheme" name="redTheme">redTheme</item>
+    </string-array>
 </resources>

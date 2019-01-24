@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<com.flipboard.bottomsheet.BottomSheetLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/popupWrap"
+>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -53,16 +59,20 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="50dp"
+                android:paddingBottom="50dp"
         />
-
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/redTheme"
                     app:menu="@menu/bottom"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:itemBackground="@color/design_default_color_primary"
+                    app:itemTextAppearanceActive="@color/colorAccent"
                     android:layout_gravity="bottom"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
                     android:id="@+id/navBar"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.flipboard.bottomsheet.BottomSheetLayout>
