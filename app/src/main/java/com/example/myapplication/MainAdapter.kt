@@ -72,7 +72,13 @@ class GroupAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
     ) {
 
         val item = items.get(position) as GroupItem
-        (holder as GroupHolder).view.findViewById<TextView>(R.id.textView).text = item.title
+        (holder as GroupHolder).view.apply {
+            findViewById<TextView>(R.id.textView).text = item.title
+            Picasso.get().load(item.img)
+                .placeholder(R.drawable.linux)
+                .error(R.drawable.linux).into(findViewById<ImageView>(R.id.imageView))
+            findViewById<TextView>(R.id.textView2).text = item.descr
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,42 +9,52 @@
 
         <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/appBarWrap"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/listView"
+        >
             <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-                    app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
+                    android:layout_height="match_parent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:expandedTitleMarginStart="48dp"
+                    app:expandedTitleMarginEnd="64dp"
+
+            >
                 <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="100dp"
+                        android:layout_height="200dp"
                         android:src="@drawable/linux"
                         android:id="@+id/app_bar_image"
                 />
+                <androidx.appcompat.widget.Toolbar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_collapseMode="pin"
+                />
+
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.core.widget.NestedScrollView
-                android:layout_marginTop="100dp"
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView"
+                app:layout_constraintTop_toBottomOf="@id/appBarWrap"
+                app:layout_constraintBottom_toTopOf="@id/navBar"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_margin="10dp"
                 android:layout_marginBottom="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+        />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:layout_editor_absoluteY="8dp"
-                        tools:layout_editor_absoluteX="8dp" android:id="@+id/listView"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -52,5 +62,7 @@
                     android:layout_height="wrap_content"
                     app:menu="@menu/bottom"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:itemBackground="@color/design_default_color_primary"
+                    android:layout_gravity="bottom"
                     android:id="@+id/navBar"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

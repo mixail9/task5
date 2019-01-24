@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity() {
 
-    val adapterObj: MainAdapter = MainAdapter(this, data)
+    public val adapterObj: MainAdapter = MainAdapter(this, data.filter { it.type == TYPE_PERSONAL })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +20,21 @@ class Main2Activity : AppCompatActivity() {
         listView.layoutManager = LinearLayoutManager(this)
 
         navBar.setOnNavigationItemSelectedListener{ setData(it) }
+
+        DataLoader(this).load()
     }
 
-    fun setData(item: MenuItem): Boolean {
-        when (item.itemId) {
+    fun setData(item: MenuItem?): Boolean {
+        when (item?.itemId) {
             R.id.item1 -> { adapterObj.items = data.filter { it.type == TYPE_PERSONAL }; app_bar_image.setImageResource(R.drawable.linux) }
             R.id.item2 -> { adapterObj.items = data.filter { it.type == TYPE_GROUP }; app_bar_image.setImageResource(R.drawable.win) }
             else -> {}
         }
+        if(item == null) {
+            adapterObj.items = data.filter { it.type == TYPE_PERSONAL }
+            app_bar_image.setImageResource(R.drawable.linux)
+        }
+
         Log.d("current", adapterObj.dataSet.toString())
         adapterObj.notifyDataSetChanged()
         return true

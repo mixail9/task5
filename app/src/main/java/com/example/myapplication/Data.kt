@@ -1,11 +1,20 @@
 package com.example.myapplication
 
+import android.app.DownloadManager
+import android.content.Context
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
+
 const val TYPE_GROUP = 1
 const val TYPE_PERSONAL = 2
 const val TYPE_ADV = 3
 
 
-val data = listOf(
+var data = listOf(
     GroupItem("cars"),
     GroupItem("bicicles"),
     GroupItem("art"),
@@ -16,6 +25,11 @@ val data = listOf(
     PersonalItem("Adam"),
     PersonalItem("Kelly")
 )
+
+
+
+
+
 
 
 abstract class OneItem {
@@ -32,7 +46,7 @@ abstract class OneItem {
 data class AdvItem(val img: String): OneItem() {
     override val type = TYPE_ADV
 }
-data class GroupItem(val title: String): OneItem() {
+data class GroupItem(val title: String, val img: String = "", val descr: String = ""): OneItem() {
     override val type = TYPE_GROUP
 }
 data class PersonalItem(val title: String): OneItem() {

@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun login(view: View): Boolean {
         if(true) {
-            //startActivity(Intent(this, Main2Activity::class.java))
-            //return true
+            startActivity(Intent(this, Main2Activity::class.java))
+            return true
         }
 
         if(loginInput.text!!.toString().equals("test") && passInput.text!!.toString().equals("test")) {
