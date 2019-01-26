@@ -15,4 +15,8 @@
         <item id="standart" name="standart">standart</item>
         <item id="redTheme" name="redTheme">redTheme</item>
     </string-array>
+
+    <string name="newItemTitle">Title</string>
+    <string name="newItemText">Body</string>
+    <string name="newItemBtn">Add</string>
 </resources>

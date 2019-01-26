@@ -16,12 +16,11 @@ import com.squareup.picasso.Picasso
 
 class GroupHolder(val view: View): RecyclerView.ViewHolder(view)
 
-class MainAdapter(var ctx: Activity, val dataSet: List<OneItem>): ListDelegationAdapter<List<OneItem>>() {
+class MainAdapter(ctx: Activity, val dataSet: List<OneItem>): ListDelegationAdapter<List<OneItem>>() {
 
     init{
         delegatesManager.addDelegate(GroupAdapter(ctx)).addDelegate(PersonalAdapter(ctx)).addDelegate(AdvAdapter(ctx))
         setItems(dataSet)
-        //Log.d("current", dataSet.toString())
     }
 }
 
@@ -48,14 +47,13 @@ class AdvAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
         val item = items.get(position) as AdvItem
         val imageView = (holder as GroupHolder).view.findViewById<ImageView>(R.id.imageView)
         //(holder as GroupHolder).view.findViewById<ImageView>(R.id.imageView).setImageResource(item.img)
-        val url = "your_url"
         Picasso.get().load(item.img)
             .placeholder(R.drawable.linux)
             .error(R.drawable.linux).into(imageView)
     }
 }
 
-class GroupAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
+class GroupAdapter(private val ctx: Activity): AdapterDelegate<List<OneItem>>() {
 
 
     override fun isForViewType(items: List<OneItem>, position: Int): Boolean {
@@ -84,7 +82,7 @@ class GroupAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
     }
 }
 
-class PersonalAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
+class PersonalAdapter(private val ctx: Activity): AdapterDelegate<List<OneItem>>() {
 
 
     override fun isForViewType(items: List<OneItem>, position: Int): Boolean {
@@ -104,7 +102,8 @@ class PersonalAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
         val item = items.get(position) as PersonalItem
         with((holder as GroupHolder).view) {
             findViewById<TextView>(R.id.textView).text = item.title
-            findViewById<TextView>(R.id.textView2).text = item.text?.substring(0..150)
+            val textLength = Math.min(150, if(item.text != null)item.text.length-1 else 0)
+            findViewById<TextView>(R.id.textView2).text = item.text?.substring(0..textLength)
             if(item.likes > 3) {
                 findViewById<ImageView>(R.id.imageView2).setImageResource(R.drawable.heart2)
                 findViewById<TextView>(R.id.textView).text = item.likes.toString()
@@ -116,7 +115,6 @@ class PersonalAdapter(val ctx: Activity): AdapterDelegate<List<OneItem>>() {
                 val popupNode = LayoutInflater.from(ctx).inflate(R.layout.popup, ctx.findViewById(R.id.imageView), false)
                 popupNode.findViewById<TextView>(R.id.fullText).text = item.text
                 ctx.findViewById<BottomSheetLayout>(R.id.popupWrap).showWithSheetView(popupNode)
-
             }
         }
     }

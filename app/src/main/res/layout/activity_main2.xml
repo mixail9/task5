@@ -26,19 +26,12 @@
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:contentScrim="?attr/colorPrimary"
                     app:expandedTitleMarginStart="48dp"
-                    app:expandedTitleMarginEnd="64dp"
-
             >
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:src="@drawable/linux"
-                        android:id="@+id/app_bar_image"
-                />
-                <androidx.appcompat.widget.Toolbar
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_collapseMode="pin"
+                        android:src="@drawable/linux"
+                        android:id="@+id/app_bar_image"
                 />
 
 
@@ -63,16 +56,35 @@
         />
 
 
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnAddWrap"
+                android:layout_gravity="end|bottom"
+                android:layout_marginBottom="70dp"
+                app:layout_anchor="@id/navBar"
+                app:layout_anchorGravity="top|end"
+        >
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnAdd"
+                    android:background="@color/colorPrimary"
+            />
+        </LinearLayout>
+
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/redTheme"
                     app:menu="@menu/bottom"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:itemTextColor="@color/colorPrimaryDark"
                     app:itemTextAppearanceActive="@color/colorAccent"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="0dp"
                     android:layout_marginRight="0dp"
+                    android:background="@color/colorPrimary"
                     android:id="@+id/navBar"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </com.flipboard.bottomsheet.BottomSheetLayout>

@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.app.Activity
-import android.content.Context
 import android.util.Log
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -9,12 +8,12 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import java.lang.Exception
 
-class DataLoader(val ctx: Activity) {
+class DataLoader(private val ctx: Activity) {
 
     private val loadSteps = 2
     private var completedSteps = 0
-    val newData = ArrayList<OneItem>()
-    val advPariod = 5
+    private val newData = ArrayList<OneItem>()
+    private val advPariod = 5
 
     fun load(): Boolean {
         val queue = Volley.newRequestQueue(ctx)
@@ -25,12 +24,13 @@ class DataLoader(val ctx: Activity) {
             Response.Listener<String> { response ->
                 val responseJson = JSONObject(response).getJSONObject("response").getJSONArray("items")
                 for(i in 0..responseJson.length()-1) {
+                    if(i % advPariod == 0 && i > 0)
+                        newData.add(AdvItem("https://sun9-22.userapi.com/c846522/v846522817/113130/3bdEJoWKoiY.jpg"))
+
                     with(responseJson.getJSONObject(i)) {
-                        //if(i % advPariod == 0)
-                        //    newData.add(AdvItem("https://sun9-22.userapi.com/c846522/v846522817/113130/3bdEJoWKoiY.jpg"))
                         descr = ""
                         try {
-                            descr = /*"\nphone = " + this.getString("mobile_phone") + */"\nsex = " + if(this.getInt("sex")==2) "man" else "woman" + "\ncountry = " + this.getJSONObject("country").getString("title") + "\ncity = " + this.getJSONObject("city").getString("title")
+                            descr = "\nsex = " + if(this.getInt("sex")==2) "man" else "woman" + "\ncountry = " + this.getJSONObject("country").getString("title") + "\ncity = " + this.getJSONObject("city").getString("title")
                         } catch(e: Exception) { Log.d("current", e.toString()) }
                         newData.add(
                             GroupItem(
@@ -54,8 +54,6 @@ class DataLoader(val ctx: Activity) {
                 Log.d("current", response)
                 val responseJson = JSONObject(response).getJSONObject("response").getJSONArray("items")
                 for(i in 0..responseJson.length()-1) {
-                    if(i % advPariod == 0 && i > 0)
-                        newData.add(AdvItem("https://sun9-22.userapi.com/c846522/v846522817/113130/3bdEJoWKoiY.jpg"))
                     with(responseJson.getJSONObject(i)) {
                         try {
                         newData.add(
@@ -78,15 +76,14 @@ class DataLoader(val ctx: Activity) {
     }
 
 
-    fun setLocal() {
-        Log.d("current", "step = " + completedSteps + " / " + loadSteps)
+    private fun setLocal() {
         if(completedSteps < loadSteps)
             return
 
         data = newData
         (ctx as Main2Activity).adapterObj.apply {
             items = newData
-            notifyDataSetChanged()
+            ctx.setData()
         }
     }
 }

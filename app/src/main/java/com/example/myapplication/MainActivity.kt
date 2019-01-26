@@ -12,7 +12,7 @@ import android.widget.AdapterView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-var currentTheme = android.R.style.Theme
+var currentTheme = R.style.redTheme
 
 class MainActivity : AppCompatActivity() {
 

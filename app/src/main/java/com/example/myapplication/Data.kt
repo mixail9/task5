@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.app.DownloadManager
 import android.content.Context
 import android.util.Log
+import android.view.View
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -12,9 +13,10 @@ import org.json.JSONObject
 const val TYPE_GROUP = 1
 const val TYPE_PERSONAL = 2
 const val TYPE_ADV = 3
+const val TYPE_CUSTOM = 10
 
 
-var data = listOf(
+var data: ArrayList<OneItem> = ArrayList(listOf(
     GroupItem("cars"),
     GroupItem("bicicles"),
     GroupItem("art"),
@@ -24,11 +26,7 @@ var data = listOf(
     PersonalItem("Joe"),
     PersonalItem("Adam"),
     PersonalItem("Kelly")
-)
-
-
-
-
+))
 
 
 
