@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               android:minHeight="300dp"
               android:layout_margin="20dp"
-              android:background="@color/colorPrimary"
+              android:background="?attr/colorPrimary"
               android:gravity="center_vertical|center_horizontal"
 >
     <LinearLayout
