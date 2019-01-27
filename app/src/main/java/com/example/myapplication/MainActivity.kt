@@ -61,11 +61,11 @@ class MainActivity : AppCompatActivity() {
         if(loginInput.text.toString() == TEST_LOGIN && passInput.text.toString() == TEST_LOGIN) {
             startActivity(Intent(this, Main2Activity::class.java))
         } else
-            if(loginInput.text.isEmpty() && passInput.text.isEmpty())
+            if(loginInput.text.toString().isEmpty() && passInput.text.toString().isEmpty())
                 Snackbar.make(view, getString(R.string.emptyLoginAndPass), Snackbar.LENGTH_SHORT).show()
-            else if(loginInput.text.isEmpty())
+            else if(loginInput.text.toString().isEmpty())
                 Snackbar.make(view, getString(R.string.emptyLogin), Snackbar.LENGTH_SHORT).show()
-            else if(passInput.text.isEmpty())
+            else if(passInput.text.toString().isEmpty())
                 Snackbar.make(view, getString(R.string.emptyPass), Snackbar.LENGTH_SHORT).show()
             else
                 Snackbar.make(view, getString(R.string.passErr), Snackbar.LENGTH_SHORT).show()
