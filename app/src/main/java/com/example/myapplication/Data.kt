@@ -1,19 +1,9 @@
 package com.example.myapplication
 
-import android.app.DownloadManager
-import android.content.Context
-import android.util.Log
-import android.view.View
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONObject
 
 const val TYPE_GROUP = 1
 const val TYPE_PERSONAL = 2
 const val TYPE_ADV = 3
-const val TYPE_CUSTOM = 10
 
 
 var data: ArrayList<OneItem> = ArrayList(listOf(
@@ -28,6 +18,8 @@ var data: ArrayList<OneItem> = ArrayList(listOf(
     PersonalItem("Kelly")
 ))
 
+
+const val PREVIEW_STRING_LENGTH = 150
 
 
 abstract class OneItem {

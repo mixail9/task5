@@ -26,7 +26,6 @@
             android:layout_gravity="end">
 
         <TextView
-                android:id="@+id/likesCount"
                 android:layout_width="40dp"
                 android:layout_height="40dp">
 

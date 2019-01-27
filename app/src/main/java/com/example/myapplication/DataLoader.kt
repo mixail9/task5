@@ -5,10 +5,10 @@ import android.util.Log
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONException
 import org.json.JSONObject
-import java.lang.Exception
 
-class DataLoader(private val ctx: Activity) {
+class DataLoader(private val ctx: Main2Activity) {
 
     private val loadSteps = 2
     private var completedSteps = 0
@@ -30,8 +30,10 @@ class DataLoader(private val ctx: Activity) {
                     with(responseJson.getJSONObject(i)) {
                         descr = ""
                         try {
-                            descr = "\nsex = " + if(this.getInt("sex")==2) "man" else "woman" + "\ncountry = " + this.getJSONObject("country").getString("title") + "\ncity = " + this.getJSONObject("city").getString("title")
-                        } catch(e: Exception) { Log.d("current", e.toString()) }
+                            descr = "\nsex = " + if(this.getInt("sex")==2) "man" else "woman"
+                            descr += "\ncountry = " + this.getJSONObject("country").getString("title")
+                            descr += "\ncity = " + this.getJSONObject("city").getString("title")
+                        } catch(e: JSONException) { Log.d("current", e.toString()) }
                         newData.add(
                             GroupItem(
                                 this.getString("first_name") + " " + this.getString("last_name"),
@@ -63,7 +65,7 @@ class DataLoader(private val ctx: Activity) {
                                     this.getJSONObject("likes").getInt("count")
                                 )
                         )
-                    } catch(e: Exception) { Log.e("current", e.toString())}
+                    } catch(e: JSONException) { Log.e("current", e.toString())}
                     }
                 }
                 completedSteps++
@@ -81,7 +83,7 @@ class DataLoader(private val ctx: Activity) {
             return
 
         data = newData
-        (ctx as Main2Activity).adapterObj.apply {
+        ctx.adapterObj.apply {
             items = newData
             ctx.setData()
         }

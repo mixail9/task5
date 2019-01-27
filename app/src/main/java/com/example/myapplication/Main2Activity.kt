@@ -32,11 +32,8 @@ class Main2Activity : AppCompatActivity() {
         listView.layoutManager = LinearLayoutManager(this)
 
         navBar.setOnNavigationItemSelectedListener{ setData(it.itemId) }
-        try {
-            DataLoader(this).load()
-        } catch(e: Exception) {
-            Log.e("current", e.toString())
-        }
+
+        DataLoader(this).load()
 
         btnAdd.setOnClickListener { showAddForm() }
     }
@@ -63,19 +60,26 @@ class Main2Activity : AppCompatActivity() {
 
 
     fun addToData(v: View) {
-        (v.parent as LinearLayout).apply{
+        val wrap = v.parent as? LinearLayout ?: return
+
+        wrap.apply{
             data.add(data.size, PersonalItem(
                 findViewById<EditText>(R.id.newItemTitle).text.toString(),
                 findViewById<EditText>(R.id.newItemText).text.toString()
             ))
         }
-        (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(v.windowToken, 0)
+        val tmpService = getSystemService(Activity.INPUT_METHOD_SERVICE)
+        if(tmpService is InputMethodManager)
+            tmpService.hideSoftInputFromWindow(v.windowToken, 0)
+
         this.findViewById<BottomSheetLayout>(R.id.popupWrap).dismissSheet()
         setData()
     }
 
     private fun showAddForm() {
-        val popupNode = LayoutInflater.from(this).inflate(R.layout.popup_add, findViewById(R.id.imageView), false)
+        val popupNode = LayoutInflater.from(this)
+            .inflate(R.layout.popup_add, findViewById(R.id.imageView), false)
+
         this.findViewById<BottomSheetLayout>(R.id.popupWrap).showWithSheetView(popupNode)
 
     }

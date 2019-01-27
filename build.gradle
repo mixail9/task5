@@ -42,6 +42,6 @@ detekt {
     profile("main") {
         input = "$projectDir/app"
         config = "$projectDir/detekt.yml"
-        //filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
+        filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
     }
 }
